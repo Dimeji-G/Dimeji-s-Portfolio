@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - Dimeji Ukwedje | Backend Engineer{% endblock %}
+
+{% block description %}Backend Engineer specializing in Python automation and scraping. I build Python automation that saves businesses 100+ hours monthly.{% endblock %}
+
+{% block keywords %}Backend Engineer, Python Automation, Web Scraping, Django, E.C Engineer, Dimeji Ukwedje{% endblock %}
+
+{% block nav_home %}active{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div id="particles-js"></div>
+    <div class="container">
+        <div class="hero-content">
+            <div class="profile-image-container animate-fade-up delay-600" style="margin-bottom: 30px;">
+                <div class="profile-image">
+                    <img src="{% static 'Images/profile.jpg' %}" alt="Dimeji Ukwedje" id="profile-img">
+                    <div class="profile-placeholder" id="profile-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+            <h1 class="hero-title animate-fade-up" style="font-family: 'Bitcount Prop Double Ink', sans-serif; font-size: 2.2em;">Dimeji Ukwedje</h1>
+            <p class="hero-description animate-fade-up delay-200" style="max-width: 900px;">
+                Backend Engineer | Automation and Scraping Specialist | E.C Engineer
+                <br> <span style="font-size: 0.82em;">I Build Python Automation That Saves Businesses 100+ Hours Monthly</span>
+            </p>
+            
+            <div class="hero-buttons animate-fade-up delay-300">
+                <a href="{% url 'website:projects' %}" class="btn btn-primary">
+                    View Projects
+                    <i class="fas fa-arrow-right"></i>
+                </a>
+                <a href="{% url 'website:contact' %}" class="btn btn-outline">Get in Touch</a>
+            </div>
+
+            <div class="social-links animate-fade-up delay-500">
+                <a href="https://github.com/Dimeji-G" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://linkedin.com/in/dimeji-g" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="mailto:dimeji@dimroid.com" class="social-link">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="{% static 'docs/cv.pdf' %}" target="_blank" class="social-link">
+                    <i class="fas fa-file-text"></i>
+                </a>
+                <a href="https://dimroid.com" target="_blank" rel="noopener noreferrer" class="social-link">
+                    <i class="fas fa-globe"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,279 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Projects - Dimeji Ukwedje | Backend Engineer{% endblock %}
+
+{% block description %}Explore the projects and work of Dimeji Ukwedje, showcasing Python automation, Django applications, and modern web tools.{% endblock %}
+
+{% block keywords %}Projects, Python Automation, Django, Web Development, Backend Engineering, Portfolio{% endblock %}
+
+{% block nav_projects %}active{% endblock %}
+
+{% block extra_css %}
+<style>
+    .projects-page {
+        padding: 6rem 0;
+    }
+    
+    .projects-stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+        justify-content: center;
+    }
+    
+    .stat-card {
+        text-align: center;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 0.32rem;
+        box-shadow: var(--shadow-sm);
+        transition: var(--transition);
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+    
+    .stat-number {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--accent-primary);
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-size: 0.8rem;
+    }
+    
+    .more-projects {
+        text-align: center;
+        margin-top: 4rem;
+        padding: 3rem;
+        border: 1px solid var(--border-color);
+        border-radius: var(--border-radius);
+        box-shadow: var(--shadow-sm);
+    }
+    
+    .more-projects h2 {
+        margin-bottom: 1rem;
+        color: var(--accent-primary);
+    }
+    
+    .more-projects p {
+        color: var(--text-secondary);
+        margin-bottom: 2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .project-image {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .featured-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        background: linear-gradient(135deg, #000000, #333333);
+        color: white;
+        padding: 0.5rem 1rem;
+        border-radius: 2rem;
+        font-size: 0.75rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    }
+    
+    .project-image img {
+        transition: transform 0.3s ease;
+    }
+    
+    .project-card:hover .project-image img {
+        transform: scale(1.05);
+    }
+    
+    @media (max-width: 768px) {
+        .projects-stats {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .projects-stats {
+            grid-template-columns: 120px 120px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<!-- Projects Content -->
+<main style="padding-top: 4rem;">
+    <section class="projects-page">
+        <div class="container">
+            <div class="section-header" style="position: absolute;">
+                
+            </div>
+            
+            <div class="projects-stats">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="stat-label">Projects Completed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Technologies Used</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">100+</div>
+                    <div class="stat-label">GitHub Commits</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">5+</div>
+                    <div class="stat-label">Live Deployments</div>
+                </div>
+            </div>
+            
+            <div class="projects-filter">
+                <button class="filter-btn active" data-filter="all">All Projects</button>
+                <button class="filter-btn" data-filter="web">Web Apps</button>
+                <button class="filter-btn" data-filter="tools">Tools</button>
+                <button class="filter-btn" data-filter="featured">Featured</button>
+            </div>
+            
+            <div class="projects-grid" id="projects-grid">
+                <!-- Projects will be loaded by JavaScript -->
+            </div>
+            
+            <div class="more-projects">
+                <h2>More Projects</h2>
+                <p>Want to see more of my work? Check out my GitHub profile for additional projects and contributions.</p>
+                <a href="https://github.com/Dimeji-G" target="_blank" class="btn btn-primary">
+                    <i class="fab fa-github"></i>
+                    View GitHub Profile
+                </a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Get projects data from Django context
+    const projectsData = [
+        {% for project in projects %}
+        {
+            title: "{{ project.title|escapejs }}",
+            description: "{{ project.description|escapejs }}",
+            tags: [{% for tech in project.get_technologies_list %}"{{ tech|escapejs }}"{% if not forloop.last %}, {% endif %}{% endfor %}],
+            github: "{{ project.github_url|escapejs }}",
+            {% if project.live_url %}live: "{{ project.live_url|escapejs }}",{% endif %}
+            category: "{{ project.category|escapejs }}",
+            featured: {{ project.featured|yesno:"true,false" }},
+            {% if project.image %}image: "{{ project.image.url|escapejs }}",{% endif %}
+            slug: "{{ project.slug|escapejs }}"
+        }{% if not forloop.last %},{% endif %}
+        {% endfor %}
+    ];
+
+    // Override the projects array in main.js for this page
+    window.addEventListener('DOMContentLoaded', function() {
+        // Clear the default projects and use the enhanced data
+        const projectsGrid = document.getElementById('projects-grid');
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        
+        function renderProjectsPage(projectsToShow = projectsData) {
+            projectsGrid.innerHTML = '';
+            
+            projectsToShow.forEach((project, index) => {
+                const projectCard = createEnhancedProjectCard(project, index);
+                projectsGrid.appendChild(projectCard);
+            });
+            
+            // Animate new cards
+            setTimeout(() => {
+                const newCards = projectsGrid.querySelectorAll('.project-card');
+                newCards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, index * 100);
+                });
+            }, 50);
+        }
+        
+        function createEnhancedProjectCard(project, index) {
+            const card = document.createElement('div');
+            card.className = 'project-card animate-on-scroll';
+            card.style.animationDelay = `${index * 0.1}s`;
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'all 0.6s ease';
+            
+            card.innerHTML = `
+                <div class="project-image">
+                    ${project.image ? 
+                        `<img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;">` :
+                        '<i class="fas fa-code"></i>'
+                    }
+                    ${project.featured ? '<div class="featured-badge"><i class="fas fa-star"></i> Featured</div>' : ''}
+                </div>
+                <div class="project-content">
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.description}</p>
+                    <div class="project-tags">
+                        ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="project-links">
+                        <a href="${project.github}" target="_blank" rel="noopener noreferrer" class="project-link">
+                            <i class="fab fa-github"></i>
+                            GitHub
+                        </a>
+                        ${project.live ? `
+                            <a href="${project.live}" target="_blank" rel="noopener noreferrer" class="project-link">
+                                <i class="fas fa-external-link-alt"></i>
+                                Live Demo
+                            </a>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            return card;
+        }
+        
+        // Enhanced filter functionality
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                
+                const filter = button.getAttribute('data-filter');
+                
+                let filteredProjects = projectsData;
+                
+                if (filter === 'featured') {
+                    filteredProjects = projectsData.filter(project => project.featured);
+                } else if (filter !== 'all') {
+                    filteredProjects = projectsData.filter(project => project.category === filter);
+                }
+                
+                renderProjectsPage(filteredProjects);
+            });
+        });
+        
+        // Initial render
+        renderProjectsPage();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,158 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Contact - Dimeji Ukwedje | Get In Touch{% endblock %}
+
+{% block description %}Get in touch with Dimeji Ukwedje for project collaborations, freelance opportunities, or any questions about backend engineering and automation.{% endblock %}
+
+{% block keywords %}Contact Dimeji Ukwedje, Project Collaboration, Freelance, Backend Engineer, Automation Specialist{% endblock %}
+
+{% block nav_contact %}active{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Contact Content -->
+<main style="padding-top: 4rem;">
+    <section class="contact-page">
+        <div class="container">
+            <div class="section-header">
+                <h1 class="section-title">Get In Touch</h1>
+                <p class="section-description">I'm always interested in new opportunities and collaborations. Let's create something amazing together!</p>
+            </div>
+            
+            <div class="contact-content">
+                <div class="contact-info-section">
+                    <h2>Let's Connect</h2>
+                    <p>Whether you have a project idea, want to collaborate, or just want to say hello, I'd love to hear from you. I typically respond within 24 hours.</p>
+                    
+                    <div class="contact-methods">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Email</h4>
+                                <a href="mailto:dimeji@dimroid.com">dimeji@dimroid.com</a>
+                                <p>Best for project inquiries and collaborations</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>LinkedIn</h4>
+                                <a href="https://linkedin.com/in/dimeji-g" target="_blank">linkedin.com/in/dimeji-g</a>
+                                <p>Professional networking and connections</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>GitHub</h4>
+                                <a href="https://github.com/Dimeji-G" target="_blank">github.com/Dimeji-G</a>
+                                <p>Code collaboration and open source projects</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-twitter"></i>
+                            </div>
+                            <div class="contact-details">
+                                <h4>Twitter</h4>
+                                <a href="https://X.com/Dimeji-G" target="_blank">@Dimeji-G</a>
+                                <p>Tech discussions and updates</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="availability">
+                        <h3>
+                            <i class="fas fa-clock"></i>
+                            Availability
+                        </h3>
+                        <div class="availability-status">
+                            <div class="status-indicator available"></div>
+                            <span>Available for new projects</span>
+                        </div>
+                        <p>I'm currently open to freelance work, internship opportunities, and interesting collaborations. Feel free to reach out!</p>
+                    </div>
+                </div>
+                
+                <div class="contact-form-section">
+                    <form class="contact-form" id="contact-form" method="post" action="{% url 'website:contact' %}">
+                        {% csrf_token %}
+                        <h2>Send a Message</h2>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">
+                                    <i class="fas fa-user"></i>
+                                    Name *
+                                </label>
+                                <input type="text" id="name" name="name" required placeholder="Your full name">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">
+                                    <i class="fas fa-envelope"></i>
+                                    Email *
+                                </label>
+                                <input type="email" id="email" name="email" required placeholder="your.email@example.com">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">
+                                <i class="fas fa-tag"></i>
+                                Subject *
+                            </label>
+                            <select id="subject" name="subject" required>
+                                <option value="">Select a subject</option>
+                                <option value="project">Project Collaboration</option>
+                                <option value="freelance">Freelance Opportunity</option>
+                                <option value="internship">Internship Inquiry</option>
+                                <option value="question">General Question</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">
+                                <i class="fas fa-comment"></i>
+                                Message *
+                            </label>
+                            <textarea id="message" name="message" rows="6" required placeholder="Tell me about your project, question, or how we can work together..."></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="newsletter" name="newsletter">
+                                <span class="checkmark"></span>
+                                I'd like to receive updates about your projects and blog posts
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/scripts.js' %}"></script>
+{% endblock %}
