@@ -38,6 +38,15 @@
     <!-- Favicon -->
     <link rel="icon" href="{% static 'Images/profile.jpg' %}" type="image/x-icon">
     
+    <!-- Theme Script - Set theme immediately to prevent flash -->
+    <script>
+        (function() {
+            // Get saved theme or default to dark
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', savedTheme);
+        })();
+    </script>
+    
     <!-- CSS -->
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     {% block extra_css %}{% endblock %}

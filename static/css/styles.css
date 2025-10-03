@@ -1,22 +1,5 @@
-/* CSS Variables for theming */
+/* CSS Variables for theming - Dark theme as default */
 :root {
-  --bg-primary: #ffffff;
-  --bg-secondary: #f5f5f5;
-  --bg-card: #ffffff;
-  --text-primary: #000000;
-  --text-secondary: #666666;
-  --text-muted: #999999;
-  --border-color: #e0e0e0;
-  --accent-primary: #000000;
-  --accent-secondary: #333333;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --border-radius: 0.5rem;
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-[data-theme="dark"] {
   --bg-primary: #000000;
   --bg-secondary: #1a1a1a;
   --bg-card: #1a1a1a;
@@ -26,6 +9,23 @@
   --border-color: #333333;
   --accent-primary: #ffffff;
   --accent-secondary: #cccccc;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --border-radius: 0.5rem;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+[data-theme="light"] {
+  --bg-primary: #ffffff;
+  --bg-secondary: #f5f5f5;
+  --bg-card: #ffffff;
+  --text-primary: #000000;
+  --text-secondary: #666666;
+  --text-muted: #999999;
+  --border-color: #e0e0e0;
+  --accent-primary: #000000;
+  --accent-secondary: #333333;
 }
 
 /* Reset and base styles */
@@ -66,8 +66,8 @@ body {
   transition: var(--transition);
 }
 
-[data-theme="dark"] .navbar {
-  background: rgba(15, 23, 42, 0.8);
+[data-theme="light"] .navbar {
+  background: rgba(255, 255, 255, 0.8);
 }
 
 .nav-container {
@@ -990,12 +990,12 @@ body > * {
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   :root {
-    --border-color: #000000;
-    --text-secondary: #000000;
-  }
-  
-  [data-theme="dark"] {
     --border-color: #ffffff;
     --text-secondary: #ffffff;
+  }
+  
+  [data-theme="light"] {
+    --border-color: #000000;
+    --text-secondary: #000000;
   }
 }

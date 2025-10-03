@@ -18,8 +18,8 @@ function initTheme() {
     const themeToggle = document.getElementById('theme-toggle');
     const themeIcon = themeToggle.querySelector('i');
     
-    // Get saved theme or default to light
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    // Get saved theme or default to dark
+    const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
     
     themeToggle.addEventListener('click', () => {
@@ -29,6 +29,9 @@ function initTheme() {
     });
     
     function setTheme(theme) {
+        // Temporarily disable transitions to prevent flickering
+        document.documentElement.style.setProperty('--transition', 'none');
+        
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
         
@@ -38,6 +41,11 @@ function initTheme() {
         } else {
             themeIcon.className = 'fas fa-moon';
         }
+        
+        // Re-enable transitions after a short delay
+        setTimeout(() => {
+            document.documentElement.style.removeProperty('--transition');
+        }, 50);
     }
 }
 
