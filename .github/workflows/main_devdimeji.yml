@@ -58,9 +58,9 @@ jobs:
       - name: Login to Azure
         uses: azure/login@v2
         with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_EFA2FB6B3ED74766A058FE1EF063C5D6 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_4D508087A998474F90295B2CA3509259 }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_335A1DF7D4C5421381B08E87D4AE2E8B }}
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_713CF41A173C41D28585BBECF1268EAD }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_EF9689B103584888B484FD34AD813C8B }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_AD81C495F1084A2881B734C109693F99 }}
 
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -68,5 +68,4 @@ jobs:
         with:
           app-name: 'devdimeji'
           slot-name: 'Production'
-
           
