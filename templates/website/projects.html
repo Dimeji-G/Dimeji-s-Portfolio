@@ -112,6 +112,26 @@
             grid-template-columns: 120px 120px;
         }
     }
+    
+    .project-description {
+        position: relative;
+    }
+    
+    .full-description {
+        display: none;
+    }
+    
+    .read-more {
+        color: var(--accent-primary);
+        cursor: pointer;
+        font-weight: 500;
+        margin-left: 0.25rem;
+        transition: color 0.2s ease;
+    }
+    
+    .read-more:hover {
+        color: var(--accent-secondary);
+    }
 </style>
 {% endblock %}
 
@@ -180,7 +200,7 @@
             {% if project.live_url %}live: "{{ project.live_url|escapejs }}",{% endif %}
             category: "{{ project.category|escapejs }}",
             featured: {{ project.featured|yesno:"true,false" }},
-            {% if project.image %}image: "{{ project.image.url|escapejs }}",{% endif %}
+            image: "{% if project.image %}{{ project.image.url }}{% else %}{% static 'Images/Dimroid_Rect.png' %}{% endif %}",
             slug: "{{ project.slug|escapejs }}"
         }{% if not forloop.last %},{% endif %}
         {% endfor %}
@@ -192,6 +212,29 @@
         const projectsGrid = document.getElementById('projects-grid');
         const filterButtons = document.querySelectorAll('.filter-btn');
         
+        function addReadMoreListeners() {
+            const readMoreLinks = document.querySelectorAll('.read-more');
+            readMoreLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    const descriptionContainer = this.parentElement;
+                    const truncatedSpan = descriptionContainer.querySelector('.truncated-description');
+                    const fullSpan = descriptionContainer.querySelector('.full-description');
+                    
+                    if (fullSpan.style.display === 'none' || fullSpan.style.display === '') {
+                        // Show full description
+                        truncatedSpan.style.display = 'none';
+                        fullSpan.style.display = 'inline';
+                        this.textContent = 'Read Less';
+                    } else {
+                        // Show truncated description
+                        fullSpan.style.display = 'none';
+                        truncatedSpan.style.display = 'inline';
+                        this.textContent = 'Read More';
+                    }
+                });
+            });
+        }
+        
         function renderProjectsPage(projectsToShow = projectsData) {
             projectsGrid.innerHTML = '';
             
@@ -199,6 +242,9 @@
                 const projectCard = createEnhancedProjectCard(project, index);
                 projectsGrid.appendChild(projectCard);
             });
+            
+            // Add read more functionality
+            addReadMoreListeners();
             
             // Animate new cards
             setTimeout(() => {
@@ -220,17 +266,25 @@
             card.style.transform = 'translateY(20px)';
             card.style.transition = 'all 0.6s ease';
             
+            // Truncate description to 200 characters
+            const maxLength = 100;
+            const fullDescription = project.description;
+            const truncatedDescription = fullDescription.length > maxLength ? 
+                fullDescription.substring(0, maxLength) + '...' : fullDescription;
+            const shouldShowReadMore = fullDescription.length > maxLength;
+            
             card.innerHTML = `
                 <div class="project-image">
-                    ${project.image ? 
-                        `<img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;">` :
-                        '<i class="fas fa-code"></i>'
-                    }
+                    <img src="${project.image}" alt="${project.title}" style="width: 100%; height: 100%; object-fit: cover;">
                     ${project.featured ? '<div class="featured-badge"><i class="fas fa-star"></i> Featured</div>' : ''}
                 </div>
                 <div class="project-content">
                     <h3 class="project-title">${project.title}</h3>
-                    <p class="project-description">${project.description}</p>
+                    <p class="project-description">
+                        <span class="truncated-description">${truncatedDescription}</span>
+                        <span class="full-description">${fullDescription}</span>
+                        ${shouldShowReadMore ? '<span class="read-more">Read More</span>' : ''}
+                    </p>
                     <div class="project-tags">
                         ${project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('')}
                     </div>

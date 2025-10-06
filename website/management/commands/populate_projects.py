@@ -29,110 +29,81 @@ class Command(BaseCommand):
             if created:
                 self.stdout.write(f'Created technology: {tech.name}')
         
-        # Project data based on your existing projects
+        # Replace the projects_data below with expanded versions from projects.md
         projects_data = [
             {
-                'title': 'Suncore',
-                'description': 'An open-source offline web-based audio processor with features like nightcore effect, reverb, and bass boost. Built with modern web technologies for optimal performance.',
-                'category': 'web',
-                'featured': True,
-                'github_url': 'https://github.com/Dimeji-G/suncore',
-                'live_url': 'https://suncore.vercel.app',
-                'technologies': 'Next.js, TypeScript, Audio Processing, Web Audio API, Offline',
+                'title': 'Nigeria Map Game',
+                'description': (
+                    'An educational desktop application to help users learn the 36 states of Nigeria. '
+                    'Features an interactive map, state quizzes, scoring, and progressive difficulty. '
+                    'Built as a lightweight desktop app for offline use.'
+                ),
+                'category': 'education',
+                'featured': False,
+                'github_url': '',
+                'live_url': '',
+                'technologies': 'Python, Tkinter, SQLite, Desktop',
                 'status': 'completed',
                 'order': 1,
             },
             {
-                'title': 'Flashy',
-                'description': 'Modern offline flashcard application designed for students. Features spaced repetition, progress tracking, and offline functionality for seamless studying.',
-                'category': 'web',
-                'featured': True,
-                'github_url': 'https://github.com/Dimeji-G/flashy',
-                'live_url': 'https://flashy-byigitt.vercel.app',
-                'technologies': 'Next.js, TypeScript, PWA, Study Tools, Flashcards',
+                'title': 'Automated Email System for NGO Volunteer Management',
+                'description': (
+                    'Python-powered email automation system created to manage communications with NGO volunteers. '
+                    'Supports personalized templates, scheduled sends, batching, and logging to reduce manual effort '
+                    'and improve volunteer engagement.'
+                ),
+                'category': 'automation',
+                'featured': False,
+                'github_url': '',
+                'live_url': '',
+                'technologies': 'Python, smtplib, email, Automation, Logging',
                 'status': 'completed',
                 'order': 2,
             },
             {
-                'title': 'OneTimeLink',
-                'description': 'Secure one-time-link generator for file sharing. Features encryption, expiration times, and secure file uploads with automatic cleanup.',
-                'category': 'tools',
+                'title': 'Vocabulary Web Learning Tool',
+                'description': (
+                    'An interactive glossary and flashcard web tool designed to master 1000+ vocabulary words. '
+                    'Implements spaced repetition concepts to reinforce learning and tracks progress over time. '
+                    'Accessible as a light web app with offline-ready behavior where possible.'
+                ),
+                'category': 'web',
                 'featured': False,
-                'github_url': 'https://github.com/Dimeji-G/onetimelink',
-                'technologies': 'Next.js, TypeScript, File Upload, Security, Encryption',
-                'status': 'completed',
+                'github_url': '',
+                'live_url': 'https://glossary.dimroid.com',
+                'technologies': 'Python, HTML5, CSS3, JavaScript, Flashcards, Spaced Repetition',
+                'status': 'active',
                 'order': 3,
             },
             {
-                'title': 'Portfolio Website',
-                'description': 'My personal portfolio website built with Django, featuring modern design, responsive layout, and dynamic content management.',
+                'title': 'Blog Application with Django',
+                'description': (
+                    'A full-featured blog system built with Django including categories, tagging for post recommendations, '
+                    'latest posts view, and admin-managed content. Designed for performance and easy content workflows; '
+                    'deployed with PostgreSQL and optionally hosted on Azure.'
+                ),
                 'category': 'web',
                 'featured': True,
-                'github_url': 'https://github.com/Dimeji-G/portfolio',
-                'live_url': 'https://dimroid.com',
-                'technologies': 'Django, Python, HTML5, CSS3, Responsive',
-                'status': 'active',
+                'github_url': '',
+                'live_url': 'https://dimroid.com/blog',
+                'technologies': 'Django, Python, PostgreSQL, HTML5, CSS3, Azure',
+                'status': 'completed',
                 'order': 4,
             },
             {
-                'title': 'Inventory Automation System',
-                'description': 'Python automation system for retail inventory management. Saves 100+ hours monthly with automated supplier tracking and price optimization.',
-                'category': 'tools',
+                'title': 'Dimeji\'s Personal Portfolio',
+                'description': (
+                    'Personal portfolio site showcasing projects, blog posts, and contact information for the founder. '
+                    'Focuses on clean design, responsiveness, and easy content updates.'
+                ),
+                'category': 'web',
                 'featured': True,
-                'github_url': 'https://github.com/Dimeji-G/inventory-automation',
-                'technologies': 'Python, Automation, Data Processing, Business Logic',
-                'status': 'completed',
+                'github_url': '',
+                'live_url': 'https://dimeji.tech',
+                'technologies': 'Django, HTML5, CSS3, JavaScript, Responsive Design',
+                'status': 'active',
                 'order': 5,
-            },
-            {
-                'title': 'Web Scraping Suite',
-                'description': 'Comprehensive web scraping toolkit with support for multiple sites, data processing, and automated reporting systems.',
-                'category': 'tools',
-                'featured': False,
-                'github_url': 'https://github.com/Dimeji-G/scraping-suite',
-                'technologies': 'Python, Selenium, BeautifulSoup, Data Mining',
-                'status': 'completed',
-                'order': 6,
-            },
-            {
-                'title': 'Django E-commerce Platform',
-                'description': 'Full-featured e-commerce platform with payment processing, inventory management, and customer analytics built with Django.',
-                'category': 'web',
-                'featured': False,
-                'github_url': 'https://github.com/Dimeji-G/django-ecommerce',
-                'technologies': 'Django, Python, PostgreSQL, Stripe, E-commerce',
-                'status': 'completed',
-                'order': 7,
-            },
-            {
-                'title': 'API Integration Framework',
-                'description': 'Reusable framework for integrating multiple third-party APIs with automatic retry logic, rate limiting, and error handling.',
-                'category': 'tools',
-                'featured': False,
-                'github_url': 'https://github.com/Dimeji-G/api-framework',
-                'technologies': 'Python, API, Framework, Integration',
-                'status': 'completed',
-                'order': 8,
-            },
-            {
-                'title': 'Data Analysis Dashboard',
-                'description': 'Interactive dashboard for business data analysis with real-time charts, filtering, and export capabilities.',
-                'category': 'web',
-                'featured': False,
-                'github_url': 'https://github.com/Dimeji-G/data-dashboard',
-                'technologies': 'Django, Chart.js, Data Analysis, Dashboard',
-                'status': 'completed',
-                'order': 9,
-            },
-            {
-                'title': 'Automated Report Generator',
-                'description': 'Python tool for generating automated business reports from multiple data sources with PDF and Excel export.',
-                'category': 'tools',
-                'featured': False,
-                'github_url': 'https://github.com/Dimeji-G/report-generator',
-                'technologies': 'Python, Automation, Reporting, PDF Generation',
-                'status': 'completed',
-                'order': 10,
             },
         ]
         
